@@ -102,15 +102,15 @@ infra/                 # Docker and deployment configuration
 
 ## Phase 0 — Project foundation
 
-- [ ] Add a `README.md` with the problem statement, local setup, architecture, and limitations.
-- [ ] Choose package tooling and pin versions (for example, `uv` for Python and `bun` or `npm` for the web app).
-- [ ] Add Python dependencies: FastAPI, Uvicorn, GeoPandas, Shapely, PyProj, SQLAlchemy, GeoAlchemy2, Alembic, psycopg, httpx, Pydantic, and tenacity.
-- [ ] Add web dependencies: TypeScript, MapLibre GL JS, a lightweight UI framework if desired, and a PMTiles protocol adapter.
-- [ ] Create a local `docker compose` stack for PostGIS, the API, and the web app.
-- [ ] Add `.env.example`; keep Socrata app tokens and database credentials out of Git.
-- [ ] Add formatting, linting, type checking, and tests to CI.
-- [ ] Add common developer commands such as `make db-up`, `make ingest`, `make score`, `make test`, and `make dev`.
-- [ ] Add a small Chicago-area fixture so tests do not depend on live APIs.
+- [x] Add a `README.md` with the problem statement, local setup, architecture, and limitations.
+- [x] Choose package tooling and pin versions (`uv` for Python and Bun for the HTML/TypeScript/Tailwind web app).
+- [x] Add Python dependencies: FastAPI, Uvicorn, GeoPandas, Shapely, PyProj, SQLAlchemy, GeoAlchemy2, Alembic, psycopg, httpx, Pydantic, and tenacity.
+- [x] Add web dependencies: TypeScript, Tailwind CSS, MapLibre GL JS, PMTiles, and Protomaps base themes.
+- [x] Create a local Compose stack for PostGIS, the API, and the web app, using Podman by default.
+- [x] Add `.env.example`; keep Socrata app tokens and database credentials out of Git.
+- [x] Add formatting, linting, type checking, and tests to CI.
+- [x] Add common developer commands such as `make db-up`, `make ingest`, `make score`, `make test`, and development servers.
+- [x] Add a synthetic Chicago-area fixture so tests do not depend on live APIs.
 
 ## Phase 1 — Data-source inventory and provenance
 

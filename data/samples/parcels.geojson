@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "name": "synthetic_parcels",
+  "crs": {"type": "name", "properties": {"name": "urn:ogc:def:crs:OGC:1.3:CRS84"}},
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "source_id": "sample-001",
+        "pin": "00-00-000-001-0000",
+        "owner": "SYNTHETIC PUBLIC AGENCY",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-87.6302, 41.8818], [-87.6299, 41.8818], [-87.6299, 41.8820], [-87.6302, 41.8820], [-87.6302, 41.8818]]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "source_id": "sample-002",
+        "pin": "00-00-000-002-0000",
+        "owner": "SYNTHETIC PUBLIC AGENCY",
+        "is_synthetic": true
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[[-87.6299, 41.8818], [-87.6296, 41.8818], [-87.6296, 41.8820], [-87.6299, 41.8820], [-87.6299, 41.8818]]]
+      }
+    }
+  ]
+}
+

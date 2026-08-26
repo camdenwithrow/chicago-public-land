@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+.maplibregl-ctrl-attrib {
+  font-size: 10px;
+}
