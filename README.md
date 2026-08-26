@@ -36,6 +36,8 @@ make dev-web
 
 The API is available at `http://localhost:8000`, its OpenAPI docs at `http://localhost:8000/docs`, and the web app at `http://localhost:5173`.
 
+Do not open `apps/web/index.html` directly with a `file://` URL. The browser cannot compile its TypeScript entry point or resolve Vite modules from a file origin; start the app with `make dev-web` and use the HTTP URL above.
+
 If `VITE_BASEMAP_URL` is unset, the map renders a neutral scaffold style. Set it to an absolute `.pmtiles` URL to exercise the Protomaps protocol integration. A complete styled basemap is part of the map UI milestone.
 
 ## Common commands
