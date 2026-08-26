@@ -1,4 +1,4 @@
-FROM oven/bun:1.3
+FROM docker.io/oven/bun:1.3
 
 WORKDIR /app
 
@@ -9,4 +9,3 @@ COPY apps/web ./
 
 EXPOSE 5173
 CMD ["bun", "run", "dev", "--host", "0.0.0.0"]
-

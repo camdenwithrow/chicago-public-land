@@ -1,6 +1,9 @@
 services:
   db:
-    image: postgis/postgis:16-3.5
+    build:
+      context: .
+      dockerfile: infra/postgres.Dockerfile
+    image: localhost/land-to-homes-postgis:16
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-land_to_homes}
       POSTGRES_USER: ${POSTGRES_USER:-land_to_homes}
@@ -44,4 +47,3 @@ services:
 
 volumes:
   postgres_data:
-

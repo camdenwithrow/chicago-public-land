@@ -19,7 +19,7 @@ Prerequisites:
 
 - Python 3.12 and [uv](https://docs.astral.sh/uv/)
 - Bun 1.3+
-- Docker with Compose (required for PostGIS; not required for the scaffold tests)
+- Podman with a running Podman machine and Compose provider (required for PostGIS; not required for the scaffold tests)
 
 ```bash
 cp .env.example .env
@@ -70,3 +70,22 @@ infra/              Container definitions
 ## Data and secrets
 
 Raw and processed data, PMTiles archives, credentials, and Socrata app tokens are intentionally ignored by Git. Small test fixtures under `data/samples/` may be committed when their license and provenance are documented.
+
+## Podman on macOS
+
+The database image is built locally from the multi-architecture PostgreSQL 16 Bookworm image with PostGIS installed from PostgreSQL's package repository. This avoids x86 emulation because the published `postgis/postgis` image does not provide an ARM64 manifest.
+
+Initialize and start the Linux VM once:
+
+```bash
+podman machine init --now
+```
+
+For an existing stopped machine, use `podman machine start`. Confirm that Podman and its external Compose provider are ready:
+
+```bash
+podman info
+podman compose version
+```
+
+Then run `make db-up`. To use Docker instead, override the engine for a command with `make CONTAINER_ENGINE=docker db-up`.

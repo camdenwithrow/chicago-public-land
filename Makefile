@@ -1,3 +1,6 @@
+CONTAINER_ENGINE ?= podman
+COMPOSE ?= $(CONTAINER_ENGINE) compose
+
 .PHONY: install db-up db-down dev-api dev-web ingest score lint format typecheck test check
 
 install:
@@ -5,10 +8,10 @@ install:
 	cd apps/web && bun install --frozen-lockfile
 
 db-up:
-	docker compose up -d db
+	$(COMPOSE) up -d db
 
 db-down:
-	docker compose down
+	$(COMPOSE) down
 
 dev-api:
 	uv run uvicorn apps.api.app.main:app --reload --host 0.0.0.0 --port 8000
@@ -39,4 +42,3 @@ test:
 
 check: lint typecheck test
 	cd apps/web && bun run build
-

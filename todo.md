@@ -106,7 +106,7 @@ infra/                 # Docker and deployment configuration
 - [x] Choose package tooling and pin versions (`uv` for Python and Bun for the HTML/TypeScript/Tailwind web app).
 - [x] Add Python dependencies: FastAPI, Uvicorn, GeoPandas, Shapely, PyProj, SQLAlchemy, GeoAlchemy2, Alembic, psycopg, httpx, Pydantic, and tenacity.
 - [x] Add web dependencies: TypeScript, Tailwind CSS, MapLibre GL JS, PMTiles, and Protomaps base themes.
-- [x] Create a local `docker compose` stack for PostGIS, the API, and the web app.
+- [x] Create a local Compose stack for PostGIS, the API, and the web app, using Podman by default.
 - [x] Add `.env.example`; keep Socrata app tokens and database credentials out of Git.
 - [x] Add formatting, linting, type checking, and tests to CI.
 - [x] Add common developer commands such as `make db-up`, `make ingest`, `make score`, `make test`, and development servers.
