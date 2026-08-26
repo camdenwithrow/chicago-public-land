@@ -39,6 +39,7 @@ services:
       dockerfile: infra/web.Dockerfile
     environment:
       VITE_API_URL: http://localhost:8000
+      VITE_PROTOMAPS_API_KEY: ${VITE_PROTOMAPS_API_KEY:-}
       VITE_BASEMAP_URL: ${VITE_BASEMAP_URL:-}
     ports:
       - "5173:5173"

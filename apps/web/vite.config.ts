@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
+  envDir: "../..",
   plugins: [tailwindcss()],
   optimizeDeps: {
     exclude: ["maplibre-gl"],

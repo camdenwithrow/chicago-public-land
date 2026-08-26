@@ -38,7 +38,13 @@ The API is available at `http://localhost:8000`, its OpenAPI docs at `http://loc
 
 Do not open `apps/web/index.html` directly with a `file://` URL. The browser cannot compile its TypeScript entry point or resolve Vite modules from a file origin; start the app with `make dev-web` and use the HTTP URL above.
 
-If `VITE_BASEMAP_URL` is unset, the map renders a neutral scaffold style. Set it to an absolute `.pmtiles` URL to exercise the Protomaps protocol integration. A complete styled basemap is part of the map UI milestone.
+The web app loads Vite variables from the repository-level `.env`. It chooses a basemap in this order:
+
+1. `VITE_PROTOMAPS_API_KEY` uses the hosted Protomaps Style API.
+2. `VITE_BASEMAP_URL` uses a local or hosted PMTiles archive.
+3. With neither value, the map renders a neutral scaffold style.
+
+Create a hosted API key in the Protomaps account portal and restrict its allowed origins before production deployment. The key is included in browser requests and must not be treated as a server-side secret. For a local archive, set `VITE_BASEMAP_URL` to an absolute HTTP URL such as `http://localhost:5173/maps/chicago.pmtiles`. Restart Vite after changing either value.
 
 ## Common commands
 

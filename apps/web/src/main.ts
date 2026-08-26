@@ -17,17 +17,24 @@ if (!mapContainer) {
   throw new Error("The map container is missing from the document.");
 }
 
-const basemapUrl = import.meta.env.VITE_BASEMAP_URL?.trim() || undefined;
-if (basemapUrl) {
+const basemap = createMapStyle({
+  apiKey: import.meta.env.VITE_PROTOMAPS_API_KEY?.trim() || undefined,
+  basemapUrl: import.meta.env.VITE_BASEMAP_URL?.trim() || undefined,
+});
+
+if (basemap.mode !== "empty") {
   document.querySelector("#basemap-note")?.remove();
 }
 
-const protocol = new Protocol();
-addProtocol("pmtiles", protocol.tile);
+let protocol: Protocol | undefined;
+if (basemap.mode === "pmtiles") {
+  protocol = new Protocol();
+  addProtocol("pmtiles", protocol.tile);
+}
 
 const map = new Map({
   container: mapContainer,
-  style: createMapStyle(basemapUrl),
+  style: basemap.style,
   center: CHICAGO_CENTER,
   zoom: 10.2,
   attributionControl: false,
@@ -40,7 +47,7 @@ window.addEventListener(
   "beforeunload",
   () => {
     map.remove();
-    removeProtocol("pmtiles");
+    if (protocol) removeProtocol("pmtiles");
   },
   { once: true },
 );
