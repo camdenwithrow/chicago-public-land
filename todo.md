@@ -103,9 +103,9 @@ infra/                 # Docker and deployment configuration
 ## Phase 0 — Project foundation
 
 - [x] Add a `README.md` with the problem statement, local setup, architecture, and limitations.
-- [x] Choose package tooling and pin versions (`uv` for Python and Bun for the React/TypeScript web app).
+- [x] Choose package tooling and pin versions (`uv` for Python and Bun for the HTML/TypeScript/Tailwind web app).
 - [x] Add Python dependencies: FastAPI, Uvicorn, GeoPandas, Shapely, PyProj, SQLAlchemy, GeoAlchemy2, Alembic, psycopg, httpx, Pydantic, and tenacity.
-- [x] Add web dependencies: React, TypeScript, MapLibre GL JS, PMTiles, and Protomaps base themes.
+- [x] Add web dependencies: TypeScript, Tailwind CSS, MapLibre GL JS, PMTiles, and Protomaps base themes.
 - [x] Create a local `docker compose` stack for PostGIS, the API, and the web app.
 - [x] Add `.env.example`; keep Socrata app tokens and database credentials out of Git.
 - [x] Add formatting, linting, type checking, and tests to CI.

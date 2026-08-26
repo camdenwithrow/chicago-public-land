@@ -7,9 +7,74 @@
     <meta name="description" content="Explore publicly owned Chicago land for housing potential." />
     <title>Land to Homes</title>
   </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="min-h-screen min-w-80 bg-stone-100 text-emerald-950 antialiased">
+    <main class="min-h-screen p-2.5 md:p-[18px]">
+      <header class="mx-auto mb-3.5 flex max-w-[1480px] items-center justify-between">
+        <div>
+          <p class="mb-1 text-[0.7rem] font-bold tracking-[0.14em] text-emerald-800/70 uppercase">
+            Chicago public land explorer
+          </p>
+          <h1 class="font-serif text-[clamp(1.65rem,4vw,2.45rem)] font-medium tracking-[-0.04em]">
+            Land to Homes
+          </h1>
+        </div>
+        <span
+          class="hidden rounded-full border border-stone-300 bg-amber-50 px-3 py-2 text-xs text-emerald-900/75 md:inline"
+        >
+          Foundation build
+        </span>
+      </header>
+
+      <section
+        class="mx-auto grid min-h-[calc(100vh-104px)] max-w-[1480px] grid-cols-1 overflow-hidden rounded-[18px] border border-stone-300 bg-amber-50 shadow-[0_22px_60px_rgb(31_47_40/0.12)] md:grid-cols-[minmax(260px,360px)_1fr]"
+        aria-label="Land explorer"
+      >
+        <aside class="z-10 border-b border-stone-300 p-[clamp(24px,4vw,48px)] md:border-r md:border-b-0">
+          <p class="mb-1 text-[0.7rem] font-bold tracking-[0.14em] text-emerald-800/70 uppercase">
+            Portfolio project · Methodology v1.0.0
+          </p>
+          <h2
+            class="mb-5 max-w-[11ch] font-serif text-[clamp(2.1rem,4vw,3.7rem)] leading-[0.96] font-medium tracking-[-0.055em]"
+          >
+            Find public land with housing potential.
+          </h2>
+          <p class="leading-relaxed text-emerald-950/70">
+            The data pipeline and parcel scoring are the next milestone. This scaffold establishes
+            the API, PostGIS, MapLibre, and Protomaps foundation.
+          </p>
+
+          <dl class="my-8 border-t border-stone-300 text-[0.82rem]">
+            <div class="flex justify-between gap-5 border-b border-stone-300 py-3">
+              <dt class="text-emerald-950/60">Geography</dt>
+              <dd class="font-bold">City of Chicago</dd>
+            </div>
+            <div class="flex justify-between gap-5 border-b border-stone-300 py-3">
+              <dt class="text-emerald-950/60">Views</dt>
+              <dd class="font-bold">Parcels + assembled sites</dd>
+            </div>
+            <div class="flex justify-between gap-5 border-b border-stone-300 py-3">
+              <dt class="text-emerald-950/60">Refresh target</dt>
+              <dd class="font-bold">Daily</dd>
+            </div>
+          </dl>
+
+          <p
+            id="basemap-note"
+            class="rounded-lg border border-amber-300 bg-amber-100 px-3 py-2.5 text-xs leading-relaxed text-amber-950"
+            role="status"
+          >
+            Add <code class="text-[0.72rem]">VITE_BASEMAP_URL</code> to display a PMTiles basemap.
+          </p>
+        </aside>
+
+        <div
+          id="map"
+          class="min-h-[52vh] bg-stone-200 md:min-h-[620px]"
+          aria-label="Map of Chicago"
+        ></div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
-

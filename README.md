@@ -9,7 +9,7 @@ The tracker is a research aid, not a determination that a site is legally, physi
 - Python, GeoPandas, Shapely, and PyProj for ingestion and spatial analysis
 - PostgreSQL/PostGIS for storage and spatial queries
 - FastAPI for the HTTP API
-- React, TypeScript, and MapLibre GL JS for the web client
+- Semantic HTML, TypeScript, Tailwind CSS, and MapLibre GL JS for the web client
 - Protomaps/PMTiles for the OpenStreetMap-derived basemap
 - Socrata APIs and official transit sources for public data
 
@@ -68,4 +68,3 @@ infra/              Container definitions
 ## Data and secrets
 
 Raw and processed data, PMTiles archives, credentials, and Socrata app tokens are intentionally ignored by Git. Small test fixtures under `data/samples/` may be committed when their license and provenance are documented.
-
