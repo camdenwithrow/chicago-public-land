@@ -129,12 +129,12 @@ Do not hard-code a dataset identifier until its publisher, fields, update cadenc
 
 ### Useful second-release sources
 
-- [ ] Frequent-transit service or scheduled trip frequency, not just stop presence.
-- [ ] Building footprints and current land use.
-- [ ] Flood risk, wetlands, brownfields/environmental records, and landmark districts.
-- [ ] Affordable-housing policy areas and relevant planning overlays.
-- [ ] Assessed value, sale history, or other cost proxies, with clear caveats.
-- [ ] Utilities or infrastructure capacity where publishable data exists.
+- [x] Frequent-transit service or scheduled trip frequency, not just stop presence.
+- [x] Building footprints and current land use.
+- [x] Flood risk, wetlands, brownfields/environmental records, and landmark districts.
+- [x] Affordable-housing policy areas and relevant planning overlays.
+- [x] Assessed value, sale history, or other cost proxies, with clear caveats.
+- [x] Utilities or infrastructure capacity where publishable data exists.
 
 ### Provenance requirements
 
