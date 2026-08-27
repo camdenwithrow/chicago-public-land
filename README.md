@@ -36,6 +36,14 @@ make dev-web
 
 The API is available at `http://localhost:8000`, its OpenAPI docs at `http://localhost:8000/docs`, and the web app at `http://localhost:5173`.
 
+Once PostGIS is healthy, ingest the City-owned land inventory with:
+
+```bash
+make ingest
+```
+
+Use `uv run python -m pipeline ingest --no-publish` to fetch, normalize, validate, and write audit artifacts without changing PostGIS. See [docs/ingestion.md](docs/ingestion.md) for pipeline behavior, quality gates, and configuration.
+
 Do not open `apps/web/index.html` directly with a `file://` URL. The browser cannot compile its TypeScript entry point or resolve Vite modules from a file origin; start the app with `make dev-web` and use the HTTP URL above.
 
 The web app loads Vite variables from the repository-level `.env`. It chooses a basemap in this order:
@@ -56,7 +64,7 @@ make dev-api       # Run FastAPI with reload
 make dev-web       # Run Vite
 make db-up         # Start PostGIS
 make db-down       # Stop local services
-make ingest        # Pipeline entry point (scaffold)
+make ingest        # Fetch, validate, and publish City-owned land to PostGIS
 make score         # Scoring entry point (scaffold)
 uv run python -m pipeline sources  # Validate and summarize the source registry
 ```
@@ -78,7 +86,7 @@ infra/              Container definitions
 
 Raw and processed data, PMTiles archives, credentials, and Socrata app tokens are intentionally ignored by Git. Small test fixtures under `data/samples/` may be committed when their license and provenance are documented.
 
-Every future ingestion writes immutable raw bytes and a separate run manifest outside Git. The API's
+Every ingestion writes immutable raw bytes and a separate run manifest outside Git. The API's
 `GET /meta` endpoint exposes source attribution and keeps publisher update dates distinct from tracker
 processing dates.
 
