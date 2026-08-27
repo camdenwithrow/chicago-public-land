@@ -118,14 +118,14 @@ Do not hard-code a dataset identifier until its publisher, fields, update cadenc
 
 ### Required MVP sources
 
-- [ ] Find authoritative inventories for City of Chicago, Cook County, State of Illinois, and relevant non-federal public-agency land within Chicago; record gaps where no reliable inventory exists.
-- [ ] Add an explicit federal-owner classification so federal parcels are excluded deterministically rather than by an informal name filter.
-- [ ] Find authoritative parcel/PIN geometry and ownership attributes; determine whether the geometry comes from the City of Chicago or Cook County and whether its terms allow redistribution.
-- [ ] Find Chicago zoning district polygons and any relevant planned-development or overlay boundaries.
-- [ ] Obtain official CTA transit stops and routes; use GTFS if it is the best authoritative source.
-- [ ] Find community area boundaries for navigation and summaries.
-- [ ] Identify records that mark parks, schools, libraries, police/fire facilities, rights-of-way, and other active public uses.
-- [ ] Use a Protomaps OpenStreetMap extract only for the basemap unless OSM-derived analytical fields are separately documented.
+- [x] Find authoritative inventories for City of Chicago, Cook County, State of Illinois, and relevant non-federal public-agency land within Chicago; record gaps where no reliable inventory exists.
+- [x] Add an explicit federal-owner classification so federal parcels are excluded deterministically rather than by an informal name filter.
+- [x] Find authoritative parcel/PIN geometry and ownership attributes; determine whether the geometry comes from the City of Chicago or Cook County and whether its terms allow redistribution.
+- [x] Find Chicago zoning district polygons and any relevant planned-development or overlay boundaries.
+- [x] Obtain official CTA transit stops and routes; use GTFS if it is the best authoritative source.
+- [x] Find community area boundaries for navigation and summaries.
+- [x] Identify records that mark parks, schools, libraries, police/fire facilities, rights-of-way, and other active public uses.
+- [x] Use a Protomaps OpenStreetMap extract only for the basemap unless OSM-derived analytical fields are separately documented.
 
 ### Useful second-release sources
 
@@ -138,7 +138,7 @@ Do not hard-code a dataset identifier until its publisher, fields, update cadenc
 
 ### Provenance requirements
 
-- [ ] Create a source registry containing publisher, dataset ID/URL, license, fetch method, expected schema, update frequency, and contact information.
+- [x] Create a source registry containing publisher, dataset ID/URL, license, fetch method, expected schema, update frequency, and contact information.
 - [ ] Store every ingestion run with `source_name`, `source_url`, `source_updated_at`, `fetched_at`, row count, response checksum, and pipeline version.
 - [ ] Save immutable raw responses or normalized GeoParquet snapshots outside Git.
 - [ ] Add schema-drift checks that fail loudly when required fields disappear or change type.
