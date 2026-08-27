@@ -146,22 +146,22 @@ Do not hard-code a dataset identifier until its publisher, fields, update cadenc
 
 ## Phase 2 — Reproducible ingestion
 
-- [ ] Implement a reusable Socrata client with:
+- [x] Implement a reusable Socrata client with:
   - App-token support.
   - Pagination and deterministic ordering.
   - Configurable `$select`, `$where`, and incremental-update queries.
   - Retry/backoff for rate limits and transient failures.
   - Response and schema logging without leaking credentials.
-- [ ] Build one source adapter per dataset rather than embedding dataset-specific rules in the generic client.
-- [ ] Fetch only required columns for routine updates; retain a raw snapshot for auditability.
-- [ ] Normalize column names, identifiers, dates, booleans, owner names, and null values.
-- [ ] Preserve the original source record ID and original owner text.
-- [ ] Convert geometry safely from source formats such as WKT, GeoJSON, latitude/longitude, or multipolygon fields.
-- [ ] Validate geometry type, repair recoverable invalid polygons, and quarantine records that cannot be repaired.
-- [ ] Standardize source geometry to EPSG:4326 on ingestion, then transform analytical geometry to EPSG:3435 for Chicago-area distance and area calculations.
-- [ ] Load into PostGIS through staging tables inside a transaction; swap/publish only after validation passes.
-- [ ] Make ingestion idempotent so rerunning the same source release does not duplicate records.
-- [ ] Add data-quality summaries: rows read/written, missing IDs, invalid geometry, duplicates, unmatched joins, and major count changes.
+- [x] Build one source adapter per dataset rather than embedding dataset-specific rules in the generic client.
+- [x] Fetch only required columns for routine updates; retain a raw snapshot for auditability.
+- [x] Normalize column names, identifiers, dates, booleans, owner names, and null values.
+- [x] Preserve the original source record ID and original owner text.
+- [x] Convert geometry safely from source formats such as WKT, GeoJSON, latitude/longitude, or multipolygon fields.
+- [x] Validate geometry type, repair recoverable invalid polygons, and quarantine records that cannot be repaired.
+- [x] Standardize source geometry to EPSG:4326 on ingestion, then transform analytical geometry to EPSG:3435 for Chicago-area distance and area calculations.
+- [x] Load into PostGIS through staging tables inside a transaction; swap/publish only after validation passes.
+- [x] Make ingestion idempotent so rerunning the same source release does not duplicate records.
+- [x] Add data-quality summaries: rows read/written, missing IDs, missing geometry, invalid geometry, repaired geometry, duplicates, unmatched joins, and major count changes.
 
 ## Phase 3 — PostGIS data model
 
