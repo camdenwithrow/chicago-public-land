@@ -139,10 +139,10 @@ Do not hard-code a dataset identifier until its publisher, fields, update cadenc
 ### Provenance requirements
 
 - [x] Create a source registry containing publisher, dataset ID/URL, license, fetch method, expected schema, update frequency, and contact information.
-- [ ] Store every ingestion run with `source_name`, `source_url`, `source_updated_at`, `fetched_at`, row count, response checksum, and pipeline version.
-- [ ] Save immutable raw responses or normalized GeoParquet snapshots outside Git.
-- [ ] Add schema-drift checks that fail loudly when required fields disappear or change type.
-- [ ] Make attribution and data-current dates visible in the application.
+- [x] Store every ingestion run with `source_name`, `source_url`, `source_updated_at`, `fetched_at`, row count, response checksum, and pipeline version.
+- [x] Save immutable raw responses or normalized GeoParquet snapshots outside Git.
+- [x] Add schema-drift checks that fail loudly when required fields disappear or change type.
+- [x] Make attribution and data-current dates visible in the application.
 
 ## Phase 2 — Reproducible ingestion
 

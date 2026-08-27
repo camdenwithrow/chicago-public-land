@@ -2,7 +2,7 @@
 
 Land to Homes is a portfolio project for screening publicly owned Chicago parcels for transit-accessible housing potential. It will combine reproducible geospatial ingestion, an explainable scoring model, and an interactive parcel/site map.
 
-The tracker is a research aid, not a determination that a site is legally, physically, environmentally, or financially ready for housing. See [todo.md](todo.md) for the methodology and delivery plan and [docs/data-sources.md](docs/data-sources.md) for source coverage and licensing decisions.
+The tracker is a research aid, not a determination that a site is legally, physically, environmentally, or financially ready for housing. See [todo.md](todo.md) for the methodology and delivery plan, [docs/data-sources.md](docs/data-sources.md) for source coverage and licensing decisions, and [docs/provenance.md](docs/provenance.md) for snapshot and freshness rules.
 
 ## Stack
 
@@ -77,6 +77,10 @@ infra/              Container definitions
 ## Data and secrets
 
 Raw and processed data, PMTiles archives, credentials, and Socrata app tokens are intentionally ignored by Git. Small test fixtures under `data/samples/` may be committed when their license and provenance are documented.
+
+Every future ingestion writes immutable raw bytes and a separate run manifest outside Git. The API's
+`GET /meta` endpoint exposes source attribution and keeps publisher update dates distinct from tracker
+processing dates.
 
 ## Podman on macOS
 

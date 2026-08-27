@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -16,6 +17,7 @@ class Settings(BaseSettings):
     )
     cors_origins: list[str] = ["http://localhost:5173"]
     socrata_app_token: SecretStr | None = None
+    provenance_runs_dir: Path = Path("data/processed/provenance/runs")
 
 
 @lru_cache
