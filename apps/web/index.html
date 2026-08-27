@@ -25,6 +25,38 @@
     <section
       class="mx-auto grid min-h-[calc(100vh-104px)] max-w-[1480px] grid-cols-1 overflow-hidden border border-stone-300 bg-amber-50 shadow-[0_22px_60px_rgb(31_47_40/0.12)] md:grid-cols-[minmax(260px,360px)_1fr]"
       aria-label="Land explorer">
+      <aside class="border-b border-stone-300 bg-amber-50 p-5 md:border-r md:border-b-0 md:p-6">
+        <p class="mb-2 text-[0.68rem] font-bold tracking-[0.14em] text-emerald-800/65 uppercase">
+          Data transparency
+        </p>
+        <h2 class="mb-5 text-xl font-medium tracking-[-0.025em]">Sources & freshness</h2>
+
+        <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-2 text-sm">
+          <dt class="text-emerald-950/60">Tracker processed</dt>
+          <dd id="tracker-processed-at" class="text-right font-medium">Awaiting first ingestion</dd>
+          <dt class="text-emerald-950/60">Methodology</dt>
+          <dd id="methodology-version" class="text-right font-medium">v1.0.0</dd>
+          <dt class="text-emerald-950/60">Source registry</dt>
+          <dd id="registry-version" class="text-right font-medium">Loading…</dd>
+        </dl>
+
+        <p id="metadata-state" class="mt-5 text-xs leading-relaxed text-emerald-950/60" aria-live="polite">
+          Loading independently tracked source dates…
+        </p>
+        <ul id="source-dates" class="mt-3 max-h-52 space-y-2 overflow-y-auto text-xs"></ul>
+
+        <div class="mt-6 border-t border-stone-300 pt-5 text-xs leading-relaxed text-emerald-950/65">
+          <p class="mb-2 font-bold tracking-[0.08em] uppercase">Attribution</p>
+          <p>
+            Data from
+            <a class="underline underline-offset-2" href="https://data.cityofchicago.org/">City of Chicago</a>,
+            <a class="underline underline-offset-2" href="https://datacatalog.cookcountyil.gov/">Cook County</a>,
+            <a class="underline underline-offset-2" href="https://www.transitchicago.com/developers/gtfs/">CTA</a>,
+            Illinois EPA, USFWS, CPS, and Chicago Park District.
+            Basemap © <a class="underline underline-offset-2" href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>.
+          </p>
+        </div>
+      </aside>
       <div id="map" class="w-full min-h-[52vh] bg-stone-200 md:min-h-[620px]" aria-label="Map of Chicago"></div>
     </section>
   </main>
