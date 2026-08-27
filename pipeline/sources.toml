@@ -1,0 +1,270 @@
+registry_version = "1.0.0"
+reviewed_at = "2026-08-27"
+
+[[sources]]
+key = "chicago_city_owned_land"
+name = "City-Owned Land Inventory"
+publisher = "City of Chicago Department of Planning and Development"
+kind = "ownership_inventory"
+status = "selected"
+dataset_id = "aksk-kvfp"
+landing_url = "https://data.cityofchicago.org/d/aksk-kvfp"
+fetch_url = "https://data.cityofchicago.org/resource/aksk-kvfp.geojson"
+fetch_method = "socrata_geojson"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "As maintained by the publisher; check metadata daily"
+contact = "City of Chicago Data Portal"
+geometry = "Point coordinates plus PIN; join to Cook County parcel polygon"
+join_keys = ["pin", "id"]
+expected_fields = ["id", "pin", "managing_organization", "property_status", "last_update"]
+limitations = [
+  "City inventory, not a complete inventory of every local or state public owner.",
+  "A record is not evidence that title is clear or that development is feasible.",
+  "Point coordinates are not parcel boundaries.",
+]
+
+[[sources]]
+key = "cook_current_parcels"
+name = "CookViewer Current Parcel"
+publisher = "Cook County GIS Department"
+kind = "parcel_geometry"
+status = "provisional"
+dataset_id = "cookVwrDynmc/MapServer/44"
+landing_url = "https://gis.cookcountyil.gov/traditional/rest/services/cookVwrDynmc/MapServer/44"
+fetch_url = "https://gis.cookcountyil.gov/traditional/rest/services/cookVwrDynmc/MapServer/44/query"
+fetch_method = "arcgis_feature_service"
+license = "Copyright Cook County GIS Department; redistribution permission not stated"
+update_frequency = "Current operational layer; check service metadata daily"
+contact = "gis@cookcountyil.gov"
+geometry = "Polygon, source SRID 3435 (service WKID 102671)"
+join_keys = ["PIN14", "Pin10"]
+expected_fields = ["PIN14", "Pin10", "Shape", "geom_year", "last_edited_date"]
+limitations = [
+  "The service caps each response at 2,000 features, so ingestion must page deterministically.",
+  "Do not redistribute raw parcel geometry until Cook County confirms applicable terms.",
+  "Assessor attributes are not evidence of ownership or development readiness.",
+]
+
+[[sources]]
+key = "cook_parcel_universe"
+name = "Assessor - Parcel Universe (Current Year Only)"
+publisher = "Cook County Assessor's Office"
+kind = "parcel_attributes"
+status = "provisional"
+dataset_id = "pabr-t5kh"
+landing_url = "https://datacatalog.cookcountyil.gov/d/pabr-t5kh"
+fetch_url = "https://datacatalog.cookcountyil.gov/resource/pabr-t5kh.json"
+fetch_method = "socrata_json"
+license = "License unspecified on catalog metadata"
+update_frequency = "Automatically maintained; check metadata daily"
+contact = "Cook County Assessor's Office Data Department"
+geometry = "Parcel centroid coordinates only"
+join_keys = ["pin", "pin10"]
+expected_fields = ["pin", "pin10", "year", "class", "cook_municipality_name", "lon", "lat"]
+limitations = [
+  "This is not parcel polygon geometry.",
+  "License must be clarified before redistributing source records.",
+  "Geographic and environmental fields have independent data-year columns.",
+]
+
+[[sources]]
+key = "cook_tax_exempt_parcels"
+name = "Assessor - Property Tax-Exempt Parcels"
+publisher = "Cook County Assessor's Office"
+kind = "ownership_discovery"
+status = "provisional"
+dataset_id = "vgzx-68gb"
+landing_url = "https://datacatalog.cookcountyil.gov/d/vgzx-68gb"
+fetch_url = "https://datacatalog.cookcountyil.gov/resource/vgzx-68gb.json"
+fetch_method = "socrata_json"
+license = "License unspecified on catalog metadata"
+update_frequency = "Automatically maintained; check metadata daily"
+contact = "Cook County Assessor's Office Data Department"
+geometry = "Parcel centroid coordinates only"
+join_keys = ["pin"]
+expected_fields = ["pin", "year", "owner_name", "class", "property_address", "lon", "lat"]
+limitations = [
+  "Tax exemption includes private religious, charitable, and educational owners.",
+  "Use as a discovery and cross-check source, never as proof of public ownership.",
+  "Owner names require conservative normalization and source-level verification.",
+]
+
+[[sources]]
+key = "chicago_zoning"
+name = "Boundaries - Zoning Districts (current)"
+publisher = "City of Chicago"
+kind = "zoning"
+status = "selected"
+dataset_id = "dj47-wfun"
+landing_url = "https://data.cityofchicago.org/d/dj47-wfun"
+fetch_url = "https://data.cityofchicago.org/resource/dj47-wfun.geojson"
+fetch_method = "socrata_geojson"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "Current layer; check metadata daily"
+contact = "City of Chicago Data Portal"
+geometry = "Multipolygon"
+join_keys = ["zoning_id", "globalid"]
+expected_fields = ["the_geom", "zoning_id", "zone_class", "edit_date", "globalid"]
+limitations = [
+  "Zoning classification is policy context, not confirmation that a proposed project is allowed.",
+  "Planned developments and overlays require separate interpretation.",
+]
+
+[[sources]]
+key = "cta_gtfs"
+name = "CTA GTFS/Scheduled Service Data"
+publisher = "Chicago Transit Authority"
+kind = "transit"
+status = "selected"
+dataset_id = "cta_gtfs"
+landing_url = "https://www.transitchicago.com/developers/gtfs/"
+fetch_url = "https://www.transitchicago.com/downloads/sch_data/google_transit.zip"
+fetch_method = "gtfs_zip"
+license = "CTA Developer License Agreement and Terms of Use"
+update_frequency = "Generally every one or two weeks; check daily"
+contact = "Chicago Transit Authority developer support"
+geometry = "Points in stops.txt and route shapes in shapes.txt"
+join_keys = ["stop_id", "route_id", "service_id", "trip_id"]
+expected_fields = ["stops.txt", "routes.txt", "trips.txt", "stop_times.txt", "calendar.txt", "calendar_dates.txt"]
+limitations = [
+  "The feed represents scheduled service and does not include short or unexpected reroutes.",
+  "Only one current/future package is posted, so each fetched archive must be retained.",
+  "Use and attribution must comply with CTA's developer agreement.",
+]
+
+[[sources]]
+key = "chicago_community_areas"
+name = "Boundaries - Community Areas"
+publisher = "City of Chicago"
+kind = "boundary"
+status = "selected"
+dataset_id = "igwz-8jzy"
+landing_url = "https://data.cityofchicago.org/d/igwz-8jzy"
+fetch_url = "https://data.cityofchicago.org/resource/igwz-8jzy.geojson"
+fetch_method = "socrata_geojson"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "Updated as needed; check metadata daily"
+contact = "City of Chicago Data Portal"
+geometry = "Multipolygon"
+join_keys = ["area_numbe"]
+expected_fields = ["the_geom", "area_numbe", "community"]
+limitations = ["Community areas are navigation and reporting geographies, not ownership evidence."]
+
+[[sources]]
+key = "cps_school_locations"
+name = "Chicago Public Schools - School Locations SY2526"
+publisher = "Chicago Public Schools"
+kind = "active_use"
+status = "selected"
+dataset_id = "pb6d-zzuh"
+landing_url = "https://data.cityofchicago.org/d/pb6d-zzuh"
+fetch_url = "https://data.cityofchicago.org/resource/pb6d-zzuh.geojson"
+fetch_method = "socrata_geojson"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "School year; check metadata daily"
+contact = "Chicago Public Schools"
+geometry = "Point"
+join_keys = ["school_id"]
+expected_fields = ["school_id", "short_name", "address", "the_geom"]
+limitations = ["A school point flags likely active use but does not define the full owned parcel campus."]
+
+[[sources]]
+key = "chicago_park_boundaries"
+name = "Parks - Chicago Park District Park Boundaries (current)"
+publisher = "Chicago Park District"
+kind = "active_use"
+status = "provisional"
+dataset_id = "ej32-qgdr"
+landing_url = "https://data.cityofchicago.org/d/ej32-qgdr"
+fetch_url = "https://data.cityofchicago.org/resource/ej32-qgdr.geojson"
+fetch_method = "socrata_geojson"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "Current layer; check metadata daily"
+contact = "Chicago Park District"
+geometry = "Polygon map layer; verify source-view stability before ingestion"
+join_keys = []
+expected_fields = ["the_geom"]
+limitations = ["Map-layer schema and stable source view must be verified before production ingestion."]
+
+[[sources]]
+key = "chicago_civic_facilities"
+name = "Chicago libraries, police stations, and fire stations"
+publisher = "City of Chicago"
+kind = "active_use"
+status = "provisional"
+dataset_id = "x8fc-8rcq,z8bn-74gv,28km-gtjn"
+landing_url = "https://data.cityofchicago.org/"
+fetch_url = ""
+fetch_method = "socrata_json"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "Varies by dataset; check metadata daily"
+contact = "City of Chicago Data Portal"
+geometry = "Facility points"
+join_keys = []
+expected_fields = ["location", "address"]
+limitations = [
+  "These point datasets flag likely active use but do not establish parcel ownership or campus boundaries.",
+  "Implement one adapter per dataset rather than treating this registry grouping as one feed.",
+]
+
+[[sources]]
+key = "noncity_public_land_gap"
+name = "Non-City public-agency ownership inventories"
+publisher = "CTA, CHA, CPS, Cook County, Illinois, and other public owners"
+kind = "ownership_inventory"
+status = "gap"
+dataset_id = ""
+landing_url = "https://datacatalog.cookcountyil.gov/"
+fetch_url = ""
+fetch_method = "manual_research"
+license = "Not established"
+update_frequency = "No consolidated authoritative publication found"
+contact = "Individual agency records or FOIA contacts"
+geometry = "Unknown; exact PIN required for inclusion"
+join_keys = ["pin"]
+expected_fields = ["pin", "owner_name", "ownership_effective_date", "source_record_id"]
+limitations = [
+  "No complete, current, machine-readable inventory was found for all covered non-City agencies.",
+  "City inventory managing-organization values may mention sister agencies but do not prove title or completeness.",
+  "Candidates discovered through tax-exempt records remain unpublished until independently verified.",
+]
+
+[[sources]]
+key = "rights_of_way_and_utilities_gap"
+name = "Rights-of-way and utility active-use records"
+publisher = "City, County, State, transit, and utility owners"
+kind = "active_use"
+status = "gap"
+dataset_id = ""
+landing_url = "https://data.cityofchicago.org/"
+fetch_url = ""
+fetch_method = "manual_research"
+license = "Not established"
+update_frequency = "No consolidated authoritative publication found"
+contact = "Individual asset owners"
+geometry = "Parcel or corridor geometry required"
+join_keys = ["pin"]
+expected_fields = ["pin", "use_type", "operational_status", "effective_date"]
+limitations = [
+  "No consolidated parcel-level source was found for active rights-of-way and utility uses.",
+  "Parcel shape or a tax class may suggest a right-of-way but cannot confirm operational use.",
+  "Candidates require owner verification before a cap or exclusion is applied.",
+]
+
+[[sources]]
+key = "protomaps_basemap"
+name = "Protomaps OpenStreetMap basemap"
+publisher = "Protomaps and OpenStreetMap contributors"
+kind = "basemap"
+status = "basemap_only"
+dataset_id = ""
+landing_url = "https://docs.protomaps.com/basemaps/"
+fetch_url = ""
+fetch_method = "protomaps_api_or_pmtiles"
+license = "OpenStreetMap ODbL attribution plus applicable Protomaps terms"
+update_frequency = "Provider-dependent"
+contact = "Protomaps documentation"
+geometry = "Vector tiles"
+join_keys = []
+expected_fields = []
+limitations = ["Do not use basemap features as analytical evidence without a separately documented source."]

@@ -2,7 +2,7 @@
 
 Land to Homes is a portfolio project for screening publicly owned Chicago parcels for transit-accessible housing potential. It will combine reproducible geospatial ingestion, an explainable scoring model, and an interactive parcel/site map.
 
-The tracker is a research aid, not a determination that a site is legally, physically, environmentally, or financially ready for housing. See [todo.md](todo.md) for the methodology and delivery plan.
+The tracker is a research aid, not a determination that a site is legally, physically, environmentally, or financially ready for housing. See [todo.md](todo.md) for the methodology and delivery plan and [docs/data-sources.md](docs/data-sources.md) for source coverage and licensing decisions.
 
 ## Stack
 
@@ -58,6 +58,7 @@ make db-up         # Start PostGIS
 make db-down       # Stop local services
 make ingest        # Pipeline entry point (scaffold)
 make score         # Scoring entry point (scaffold)
+uv run python -m pipeline sources  # Validate and summarize the source registry
 ```
 
 ## Repository layout
