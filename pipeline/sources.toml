@@ -1,4 +1,4 @@
-registry_version = "1.0.0"
+registry_version = "1.1.0"
 reviewed_at = "2026-08-27"
 
 [[sources]]
@@ -205,6 +205,269 @@ expected_fields = ["location", "address"]
 limitations = [
   "These point datasets flag likely active use but do not establish parcel ownership or campus boundaries.",
   "Implement one adapter per dataset rather than treating this registry grouping as one feed.",
+]
+
+[[sources]]
+key = "cta_scheduled_frequency"
+name = "Scheduled stop frequency derived from CTA GTFS"
+publisher = "Land to Homes, derived from Chicago Transit Authority data"
+kind = "transit_frequency"
+status = "selected"
+dataset_id = "derived:cta_gtfs:v1"
+landing_url = "https://www.transitchicago.com/developers/gtfs/"
+fetch_url = ""
+fetch_method = "derived_from_cta_gtfs"
+license = "CTA Developer License Agreement and Terms of Use"
+update_frequency = "Recalculate after every GTFS ingestion"
+contact = "Chicago Transit Authority developer support"
+geometry = "Inherited stop points"
+join_keys = ["stop_id", "route_id", "service_date"]
+expected_fields = ["stop_id", "route_id", "service_date", "window_start", "window_end", "scheduled_arrivals"]
+limitations = [
+  "Measures scheduled arrivals, not observed reliability or real-time service.",
+  "Service calendars and exceptions must be applied for the selected reference date.",
+  "Do not label a stop frequent until a documented threshold and time window are adopted.",
+]
+
+[[sources]]
+key = "chicago_building_footprints"
+name = "Building Footprints"
+publisher = "City of Chicago"
+kind = "building_footprints"
+status = "selected"
+dataset_id = "syp8-uezg"
+landing_url = "https://data.cityofchicago.org/d/syp8-uezg"
+fetch_url = "https://data.cityofchicago.org/resource/syp8-uezg.geojson"
+fetch_method = "socrata_geojson"
+license = "City of Chicago Data Portal Terms of Use"
+update_frequency = "Current layer; check metadata daily"
+contact = "City of Chicago Data Portal"
+geometry = "Multipolygon"
+join_keys = ["bldg_id"]
+expected_fields = ["the_geom", "bldg_id", "bldg_statu", "stories", "year_built", "bldg_sq_fo", "vacancy_st", "edit_date"]
+limitations = [
+  "A missing footprint does not prove that a parcel is vacant or buildable.",
+  "Vacancy and condition fields may be incomplete or older than the geometry update.",
+  "Parcel-level current use must combine footprints with authoritative land and facility records.",
+]
+
+[[sources]]
+key = "chicago_current_use_composite"
+name = "Parcel current-use composite"
+publisher = "Land to Homes, derived from registered City and County sources"
+kind = "current_land_use"
+status = "selected"
+dataset_id = "derived:current_use:v1"
+landing_url = "https://data.cityofchicago.org/d/syp8-uezg"
+fetch_url = ""
+fetch_method = "derived_spatial_join"
+license = "Inherits terms of every contributing source"
+update_frequency = "Recalculate after any contributing source changes"
+contact = "Land to Homes methodology"
+geometry = "Canonical parcel polygon"
+join_keys = ["pin"]
+expected_fields = ["pin", "building_coverage_ratio", "inventory_status", "assessor_class", "active_use_flags", "evidence_date"]
+limitations = [
+  "This is an evidence composite, not a replacement for a field survey or title review.",
+  "Unknown evidence remains unknown and must not be converted to vacant.",
+  "Conflicting inputs require review and retain source-level lineage.",
+]
+
+[[sources]]
+key = "chicago_zoning_overlays"
+name = "Chicago operational zoning and planning overlays"
+publisher = "City of Chicago"
+kind = "planning_overlays"
+status = "selected"
+dataset_id = "ExternalApps/Zoning/MapServer/2,9,13,14"
+landing_url = "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer"
+fetch_url = "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer"
+fetch_method = "arcgis_feature_service_layers"
+license = "City of Chicago website terms; verify redistribution before bundling raw layers"
+update_frequency = "Operational service; check layer metadata daily"
+contact = "City of Chicago Department of Planning and Development"
+geometry = "Polygon layers for planned developments, special districts, and transit-served locations"
+join_keys = ["OBJECTID", "GLOBALID", "ZONING_ID"]
+expected_fields = ["SHAPE", "OBJECTID"]
+limitations = [
+  "Each layer needs its own adapter and required-field contract.",
+  "Transit-served-location polygons represent City policy geography, not measured transit frequency.",
+  "Planned developments and special districts require ordinance-level interpretation.",
+]
+
+[[sources]]
+key = "chicago_landmark_boundaries"
+name = "Chicago Landmark Boundaries"
+publisher = "City of Chicago"
+kind = "historic_constraints"
+status = "selected"
+dataset_id = "ExternalApps/Zoning/MapServer/5"
+landing_url = "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer/5"
+fetch_url = "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer/5/query"
+fetch_method = "arcgis_feature_service"
+license = "City of Chicago website terms; verify redistribution before bundling raw layer"
+update_frequency = "Operational service; check layer metadata daily"
+contact = "City of Chicago Department of Planning and Development"
+geometry = "Polygon"
+join_keys = ["OBJECTID", "ID"]
+expected_fields = ["SHAPE", "OBJECTID", "ID", "NAME", "LANDMARK", "PENDING"]
+limitations = [
+  "A landmark overlap signals additional review; it is not an automatic housing exclusion.",
+  "Pending designations must remain distinguishable from designated landmarks.",
+]
+
+[[sources]]
+key = "chicago_fema_floodplain_2021"
+name = "FEMA Floodplain 2021"
+publisher = "City of Chicago, sourced from FEMA"
+kind = "flood_risk"
+status = "provisional"
+dataset_id = "ExternalApps/Zoning/MapServer/11"
+landing_url = "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer/11"
+fetch_url = "https://gisapps.chicago.gov/arcgis/rest/services/ExternalApps/Zoning/MapServer/11/query"
+fetch_method = "arcgis_feature_service"
+license = "City of Chicago website terms; underlying FEMA data is public domain"
+update_frequency = "2021 snapshot; compare against current FEMA metadata before each release"
+contact = "City of Chicago GIS and FEMA Map Service Center"
+geometry = "Polygon"
+join_keys = ["FLD_AR_ID", "DFIRM_ID"]
+expected_fields = ["SHAPE", "FLD_AR_ID", "FLD_ZONE", "SFHA_TF", "SOURCE_CIT", "VERSION_ID"]
+limitations = [
+  "The City layer is labeled 2021 and may lag current FEMA determinations.",
+  "Flood-zone overlap is a screening flag, not parcel-specific engineering or insurance advice.",
+  "Cross-check the Parcel Universe FEMA field and current FEMA source before publication.",
+]
+
+[[sources]]
+key = "usfws_national_wetlands_inventory"
+name = "National Wetlands Inventory Wetlands"
+publisher = "U.S. Fish and Wildlife Service"
+kind = "wetlands"
+status = "selected"
+dataset_id = "Wetlands/MapServer/0"
+landing_url = "https://www.fws.gov/program/national-wetlands-inventory/web-mapping-services"
+fetch_url = "https://fwspublicservices.wim.usgs.gov/wetlandsmapservice/rest/services/Wetlands/MapServer/0/query"
+fetch_method = "arcgis_feature_service"
+license = "U.S. federal public data; cite the NWI dataset and release"
+update_frequency = "Biannual, generally May and October"
+contact = "wetlands_team@fws.gov"
+geometry = "Polygon, service SRID 3857"
+join_keys = ["OBJECTID"]
+expected_fields = ["OBJECTID", "ATTRIBUTE", "WETLAND_TYPE", "Shape"]
+limitations = [
+  "Map vintage varies by location and must be retained from source metadata.",
+  "NWI mapping is not a jurisdictional wetland determination.",
+  "The service caps responses at 1,000 features and requires spatially bounded paging.",
+]
+
+[[sources]]
+key = "illinois_epa_brownfields"
+name = "Illinois EPA Brownfields"
+publisher = "Illinois Environmental Protection Agency"
+kind = "environmental_sites"
+status = "selected"
+dataset_id = "Land/BrownfieldsService/MapServer/0"
+landing_url = "https://geoservices.epa.illinois.gov/arcgis/rest/services/Land/BrownfieldsService/MapServer/0"
+fetch_url = "https://geoservices.epa.illinois.gov/arcgis/rest/services/Land/BrownfieldsService/MapServer/0/query"
+fetch_method = "arcgis_feature_service"
+license = "Illinois government open GIS service; verify attribution and redistribution terms"
+update_frequency = "Check service metadata daily"
+contact = "Illinois EPA Office of Brownfields Assistance"
+geometry = "Point, SRID 4326"
+join_keys = ["OBJECTID", "IEPA_ID", "ACRES_ID_"]
+expected_fields = ["OBJECTID", "IEPA_ID", "Property_Name", "Address", "Completion", "Contaminant", "Shape"]
+limitations = [
+  "A point may not delineate the full affected property or contamination extent.",
+  "The program inventory is not a complete list of every contaminated site.",
+  "Presence in a cleanup program is not proof of current unviability; completion status matters.",
+]
+
+[[sources]]
+key = "cook_assessed_values"
+name = "Assessor - Assessed Values"
+publisher = "Cook County Assessor's Office"
+kind = "cost_proxy"
+status = "provisional"
+dataset_id = "uzyt-m557"
+landing_url = "https://datacatalog.cookcountyil.gov/d/uzyt-m557"
+fetch_url = "https://datacatalog.cookcountyil.gov/resource/uzyt-m557.json"
+fetch_method = "socrata_json"
+license = "License unspecified on catalog metadata"
+update_frequency = "Automatically maintained; check metadata daily"
+contact = "Cook County Assessor's Office Data Department"
+geometry = "None; join by PIN"
+join_keys = ["pin", "year"]
+expected_fields = ["pin", "year", "class", "mailed_land", "certified_land", "board_land", "row_id"]
+limitations = [
+  "Assessed value is not market value, acquisition cost, remediation cost, or development feasibility.",
+  "Assessment stage and tax year must be displayed with every value.",
+  "License must be clarified before redistributing source records.",
+]
+
+[[sources]]
+key = "cook_parcel_sales"
+name = "Assessor - Parcel Sales"
+publisher = "Cook County Assessor's Office"
+kind = "cost_proxy"
+status = "provisional"
+dataset_id = "wvhk-k5uv"
+landing_url = "https://datacatalog.cookcountyil.gov/d/wvhk-k5uv"
+fetch_url = "https://datacatalog.cookcountyil.gov/resource/wvhk-k5uv.json"
+fetch_method = "socrata_json"
+license = "License unspecified on catalog metadata"
+update_frequency = "Automatically maintained; check metadata daily"
+contact = "Cook County Assessor's Office Data Department"
+geometry = "None; join by PIN"
+join_keys = ["pin", "sale_date", "doc_no"]
+expected_fields = ["pin", "sale_date", "sale_price", "deed_type", "is_multisale", "num_parcels_sale", "sale_type", "row_id"]
+limitations = [
+  "Nominal, non-arm's-length, multi-parcel, and government transfers are not market comparables.",
+  "Use publisher-provided sale filters and retain the original deed and multi-sale fields.",
+  "License must be clarified before redistributing source records.",
+]
+
+[[sources]]
+key = "affordable_policy_geographies_gap"
+name = "Machine-readable ARO policy geographies"
+publisher = "City of Chicago Department of Housing"
+kind = "housing_policy"
+status = "gap"
+dataset_id = ""
+landing_url = "https://www.chicago.gov/city/en/sites/affordable-requirements-ordinance/home.html"
+fetch_url = ""
+fetch_method = "manual_research"
+license = "Not established"
+update_frequency = "Policy-dependent"
+contact = "ARO@cityofchicago.org"
+geometry = "Authoritative polygons required"
+join_keys = []
+expected_fields = ["policy_area", "effective_date", "legal_source", "the_geom"]
+limitations = [
+  "No authoritative machine-readable polygons were found for all current ARO policy areas.",
+  "Do not digitize overview maps for parcel-level scoring.",
+  "City transit-served-location and zoning overlays remain separately usable policy context.",
+]
+
+[[sources]]
+key = "utility_capacity_gap"
+name = "Publishable utility and infrastructure capacity"
+publisher = "City utilities and regulated infrastructure providers"
+kind = "utility_capacity"
+status = "gap"
+dataset_id = ""
+landing_url = "https://data.cityofchicago.org/"
+fetch_url = ""
+fetch_method = "manual_research"
+license = "Not established"
+update_frequency = "No suitable public source found"
+contact = "Individual infrastructure providers"
+geometry = "Parcel or service-area capacity records required"
+join_keys = ["pin"]
+expected_fields = ["service_type", "available_capacity", "measurement_date", "service_area"]
+limitations = [
+  "No authoritative publishable parcel-level water, sewer, electric, or gas capacity source was found.",
+  "Nearby infrastructure does not prove available capacity.",
+  "Keep capacity unknown until a provider supplies publishable evidence.",
 ]
 
 [[sources]]
